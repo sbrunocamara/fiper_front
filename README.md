@@ -14,9 +14,10 @@ O front-end foi desenvolvido com design minimalista e simples.
 
 Principais tecnologias utilizadas:
 
-- VueJS
-- Javascript
-- Pinia
+- [VueJS](https://vuejs.org/)
+- [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
+- [Pinia](https://pinia.vuejs.org/)
+- [Bootstrap v5](https://getbootstrap.com/)
 
 
 ## Para detalhes do back-end -> [Back end](https://github.com/sbrunocamara/fiper_api)
