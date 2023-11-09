@@ -8,6 +8,7 @@ export const useAuth = defineStore('auth',{
 
         token: localStorage.getItem('token'),
         user: localStorage.getItem('user'),
+        email: localStorage.getItem('email'),
         returnUrl: null
        
     }),
@@ -24,16 +25,24 @@ export const useAuth = defineStore('auth',{
 
     },
 
+    async setEmail(emailValue){
+        localStorage.setItem('email',emailValue);
+    },
+
     getToken(){
        return localStorage.getItem('token');
     },
    getUser(){
         return localStorage.getItem('user');
     },
+    getEmail(){
+        return localStorage.getItem('email');
+    },
 
     async resetSession(){
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('email');
     }
    
 }})

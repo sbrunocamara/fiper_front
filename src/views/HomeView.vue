@@ -280,7 +280,7 @@ export default {
           <div class="input-group-prepend">
             <label class="input-group-text label-select" for="inputGroupSelect01">Marcas</label>
           </div>
-          <select v-model="this.model.selected_marca" required class="form-control" id="exampleFormControlSelect1">
+          <select v-model="this.model.selected_marca" required class="form-control" id="selectMarcas">
             <option value="" disabled selected>Selecione uma marca</option>
             <option v-for="(item, index) in this.model.marcas" :value="item.code" :key="index">{{ item.name }}
             </option>
@@ -293,7 +293,7 @@ export default {
           <div class="input-group-prepend">
             <label class="input-group-text label-select" for="inputGroupSelect01">Modelos</label>
           </div>
-          <select v-model="this.model.selected_modelo" required class="form-control" id="exampleFormControlSelect1">
+          <select v-model="this.model.selected_modelo" required class="form-control" id="selectModelos">
             <option value="" disabled selected>Selecione o modelo</option>
             <option v-for="(item, index) in this.model.modelos" :value="item.code" :key="index">{{ item.name }}
             </option>
@@ -304,7 +304,7 @@ export default {
           <div class="input-group-prepend">
             <label class="input-group-text label-select" for="inputGroupSelect01">Anos</label>
           </div>
-          <select v-model="this.model.selected_ano" required class="form-control" id="exampleFormControlSelect1">
+          <select v-model="this.model.selected_ano" required class="form-control" id="selectAnos">
             <option value="" disabled selected>Selecione o ano do modelo</option>
             <option v-for="(item, index) in this.model.anos" :value="item.code" :key="index">{{ item.name }}
             </option>
@@ -453,7 +453,6 @@ export default {
 
       </div>
     </div>
-
 
 
   </main>
