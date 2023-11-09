@@ -1,3 +1,27 @@
+
+# Fiper
+
+Projeto desenvolvido com o objetivo de viabilizar a consulta de dados da Tabela Fipe de veículos e gerar relatórios a partir das consultas realizadas.
+
+O sistema também possibilita a criação de uma rotina de envio de relatórios por e-mail, permitindo assim que o usuário receba periodicamente, no endereço de e-mail cadastrado, um relatório contendo os valores mais recentes dos veículos que selecionou para acompanhar.
+
+
+
+
+##  Front-End  - https://github.com/sbrunocamara/fiper_front
+
+O front-end foi desenvolvido com design minimalista e simples.
+
+Principais tecnologias utilizadas:
+
+- VueJS
+- Javascript
+- Pinia
+
+
+## Back-end -> https://github.com/sbrunocamara/fiper_api
+
+
 # fiper_front
 
 This template should help get you started developing with Vue 3 in Vite.
