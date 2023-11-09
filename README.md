@@ -19,7 +19,7 @@ Principais tecnologias utilizadas:
 - Pinia
 
 
-## [Back end](https://github.com/sbrunocamara/fiper_api)
+##Para detalhes do back-end -> [Back end](https://github.com/sbrunocamara/fiper_api)
 
 
 # fiper_front
