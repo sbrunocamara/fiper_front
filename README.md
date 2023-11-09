@@ -51,3 +51,10 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+### Environment variables
+
+Adjust the variables in .env_examle file then change the filename to .env.
+
+
