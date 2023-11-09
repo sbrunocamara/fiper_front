@@ -8,7 +8,7 @@ O sistema também possibilita a criação de uma rotina de envio de relatórios 
 
 
 
-##  Front-End  - https://github.com/sbrunocamara/fiper_front
+## [Front-End](https://github.com/sbrunocamara/fiper_front)
 
 O front-end foi desenvolvido com design minimalista e simples.
 
@@ -19,7 +19,7 @@ Principais tecnologias utilizadas:
 - Pinia
 
 
-## Back-end -> [Bak end](https://github.com/sbrunocamara/fiper_api)
+##[Back end](https://github.com/sbrunocamara/fiper_api)
 
 
 # fiper_front
