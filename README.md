@@ -1,7 +1,7 @@
 
 # Fiper
 
-Projeto desenvolvido com o objetivo de viabilizar a consulta de dados da Tabela Fipe de veículos e gerar relatórios a partir das consultas realizadas.
+Projeto desenvolvido com o objetivo de viabilizar a consulta de dados da Tabela Fipe de veículos e gerar relatórios a partir das consultas realizadas exportando para PDF ou encaminhar via e-mail.
 
 O sistema também possibilita a criação de uma rotina de envio de relatórios por e-mail, permitindo assim que o usuário receba periodicamente, no endereço de e-mail cadastrado, um relatório contendo os valores mais recentes dos veículos que selecionou para acompanhar.
 
