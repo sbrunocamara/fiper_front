@@ -1,5 +1,5 @@
 <script setup>
-
+import NavBar from '@/components/NavBar.vue'
 </script>
 
 <script>
@@ -110,6 +110,7 @@ export default {
 
 
   mounted() {
+
     // this.getMarcasCarros();
     // this.getMarcasMotos();
     // this.getMarcasCaminhoes();
@@ -241,8 +242,12 @@ export default {
 </script>
 
 <template>
+
+  <header>
+      <NavBar />
+  </header>
   <main>
-    
+  
     <div v-show="model.historyValues.length === 0 && !this.model.historyLoading">
 
       <div class="d-flex">
@@ -310,28 +315,28 @@ export default {
 
 
     <div v-show="model.historyValues.length === 0 && model.historyLoading">
-      <div class="spinner-grow text-primary" role="status">
+      <div class="spinner-grow loading1" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-secondary" role="status">
+      <div class="spinner-grow loading2" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-success" role="status">
+      <div class="spinner-grow loading3" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-danger" role="status">
+      <div class="spinner-grow loading4" bg-info role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-warning" role="status">
+      <div class="spinner-grow loading5" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-info" role="status">
+      <div class="spinner-grow loading6" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-light" role="status">
+      <div class="spinner-grow loading7" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="spinner-grow text-dark" role="status">
+      <div class="spinner-grow loading8" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
@@ -455,6 +460,7 @@ export default {
 </template>
 
 <style scoped>
+
 .form-control {
   width: 14em;
 }
@@ -646,11 +652,37 @@ font-size: 28px;
 
 }
 
-.month:first-child{
 
-  color: red;
-  background-color: #fe5b5b;
-  font-size: 60px;
+.loading1{
+  background-color: #04867b;
 
+}
+
+.loading2{
+  background-color: #02b3a4;
+}
+
+.loading3{
+  background-color: #0bffbd;
+}
+
+.loading4{
+  background-color: #00ffbb;
+}
+
+.loading5{
+  background-color: rgb(7, 240, 201);
+}
+
+.loading6{
+  background-color: rgb(5, 187, 172);
+}
+
+.loading7{
+  background-color: #08ca5f;
+}
+
+.loading8{
+  background-color: #05e66a;
 }
 </style>
