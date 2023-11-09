@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axioInstace = axios.create({
-    baseURL: 'http://127.0.0.1:3333/api',
+    baseURL: import.meta.env.URL_API_FIPE,
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
