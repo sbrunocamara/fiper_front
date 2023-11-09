@@ -12,4 +12,5 @@ const axioInstace = axios.create({
 
 })
 
+
 export default axioInstace
