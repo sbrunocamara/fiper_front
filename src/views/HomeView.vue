@@ -152,7 +152,7 @@ export default {
 
     async getMarcas(type) {
       try {
-        const response = await http.get('/marcas/' + type);
+        const response = await http.get('/brands/' + type);
         this.model.marcas = response.data;
 
       } catch (error) {
@@ -163,7 +163,7 @@ export default {
     async getModelos(type, brand) {
 
       try {
-        const response = await http.get('/modelos/' + type + '/' + brand);
+        const response = await http.get('/models/' + type + '/' + brand);
         this.model.modelos = response.data;
 
       } catch (error) {
@@ -174,7 +174,7 @@ export default {
     async getAnos(type, brand, model) {
 
       try {
-        const response = await http.get('/anos/' + type + '/' + brand + '/' + model);
+        const response = await http.get('/years/' + type + '/' + brand + '/' + model);
         this.model.anos = response.data;
 
       } catch (error) {
@@ -185,7 +185,7 @@ export default {
     async getValor(type, brand, model, year) {
 
       try {
-        const response = await http.get('/valor/' + type + '/' + brand + '/' + model + '/' + year)
+        const response = await http.get('/value/' + type + '/' + brand + '/' + model + '/' + year)
           .then((response) => {
 
             this.model.codeFipe = response.data.codeFipe;
@@ -204,7 +204,7 @@ export default {
     async getHistoryValues(codeFipe, year) {
 
       try {
-        const response = await http.get('/valor/historico/' + this.model.type + '/' + codeFipe + '/' + year)
+        const response = await http.get('/values/history/' + this.model.type + '/' + codeFipe + '/' + year)
           .then((response) => {
 
             this.model.historyValues = response.data;
@@ -218,6 +218,25 @@ export default {
       }
 
     },
+
+    
+    async exportPdf(codeFipe, year) {
+
+try {
+  const response = await http.get('/value/history/' + this.model.type + '/' + codeFipe + '/' + year + '/export/pdf')
+    .then((response) => {
+
+      this.model.historyValues = response.data;
+      this.model.historyLoading = false;
+
+    })
+
+
+} catch (error) {
+  console.log(error);
+}
+
+},
 
     async reload() {
 
@@ -242,31 +261,30 @@ export default {
 </script>
 
 <template>
-
   <header>
-      <NavBar />
+    <NavBar />
   </header>
   <main>
-  
+
     <div v-show="model.historyValues.length === 0 && !this.model.historyLoading">
 
       <div class="d-flex">
 
         <div>
-          <button type="button" class="btn m-4" :class="{ active: model.isActiveCar }" @click="setType('carros', 1)">
+          <button type="button" class="btn m-4" :class="{ active: model.isActiveCar }" @click="setType('cars', 1)">
             <font-awesome-icon class="button_type fa-5x" icon="car" />
           </button>
         </div>
 
         <div>
-          <button type="button" class="btn  m-4" :class="{ active: model.isActiveMoto }" @click="setType('motos', 2)">
+          <button type="button" class="btn  m-4" :class="{ active: model.isActiveMoto }" @click="setType('motorcycles', 2)">
             <font-awesome-icon class="button_type fa-5x" icon="motorcycle" />
           </button>
         </div>
 
         <div>
           <button type="button" class="btn  m-4" :class="{ active: model.isActiveTruck }"
-            @click="setType('caminhoes', 3)">
+            @click="setType('trucks', 3)">
             <font-awesome-icon class="button_type fa-5x" icon="truck" />
           </button>
         </div>
@@ -417,9 +435,9 @@ export default {
 
         <!-- END CARD VEICULO -->
 
-       
+
         <!-- CARD VALORES -->
-        
+
         <div v-show="model.historyValues.length !== 0">
           <div class="card_values">
             <p class="text_values">Histórico</p>
@@ -428,14 +446,13 @@ export default {
                 <div
                   style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 4px; display: inline-flex">
                   <div style="padding-right: 1em;">
-                    <div
-                      style="width: 30px; height: 8px; top: 10px; border-radius: 13%; background: #0bffbd">
+                    <div style="width: 30px; height: 8px; top: 10px; border-radius: 13%; background: #0bffbd">
                     </div>
                   </div>
                   <div class="list_items_values">
                     <div class="list_name_values">{{ item.month }}</div>
                     <div class="month">{{ item.price }}</div>
-  
+
                   </div>
                 </div>
               </div>
@@ -448,10 +465,26 @@ export default {
 
       <div class="d-flex justify-content-center">
 
+
+
         <button type="button" @click="reload" class="btn-action btn-primary">Nova consulta</button>
-        <button type="button" class="btn-action btn-primary md-5">Exportar</button>
+        <div class="dropdown ">
+
+          <button class="logout btn-action btn-primary md-5 dropdown-toggle" type="button" id="dropdownMenu2"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Exportar
+
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button">PDF</button>
+            <button class="dropdown-item" type="button" @click="openModalConfirmLogout">E-mail</button>
+          </div>
+        </div>
 
       </div>
+
+
+
     </div>
 
 
@@ -459,7 +492,6 @@ export default {
 </template>
 
 <style scoped>
-
 .form-control {
   width: 14em;
 }
@@ -597,7 +629,7 @@ main {
 .card_values {
   margin-top: 18em;
   margin-left: 2em;
- 
+
 
 }
 
@@ -634,7 +666,7 @@ main {
   font-size: 16px;
   /* font-family: Inter; */
   font-weight: 600;
-  height: 1.6em ;
+  height: 1.6em;
   width: 200px;
 
   /* margin-left: 10px; */
@@ -642,46 +674,66 @@ main {
 }
 
 .text_values {
-font-family: poppins;
-color: #5b77fe;
-border-radius: 15px;
-width: 1px;
-text-align: center;
-font-size: 28px;
+  font-family: poppins;
+  color: #5b77fe;
+  border-radius: 15px;
+  width: 1px;
+  text-align: center;
+  font-size: 28px;
 
 }
 
 
-.loading1{
+.loading1 {
   background-color: #04867b;
 
 }
 
-.loading2{
+.loading2 {
   background-color: #02b3a4;
 }
 
-.loading3{
+.loading3 {
   background-color: #0bffbd;
 }
 
-.loading4{
+.loading4 {
   background-color: #00ffbb;
 }
 
-.loading5{
+.loading5 {
   background-color: rgb(7, 240, 201);
 }
 
-.loading6{
+.loading6 {
   background-color: rgb(5, 187, 172);
 }
 
-.loading7{
+.loading7 {
   background-color: #08ca5f;
 }
 
-.loading8{
+.loading8 {
   background-color: #05e66a;
 }
+
+
+.logout:hover {
+    background-color: rgb(5, 223, 204);
+    border-color: rgb(5, 223, 204);
+}
+
+.logout:active {
+    background-color: #00fde8;
+    color: white;
+}
+
+
+.dropdown-item:hover{
+
+background-color: #b5f0eb;
+border-radius: 3%;
+
+}
+
 </style>
