@@ -219,25 +219,33 @@ export default {
 
     },
 
-    
+
     async exportPdf(codeFipe, year) {
 
-try {
-  const response = await http.get('/value/history/' + this.model.type + '/' + codeFipe + '/' + year + '/export/pdf')
-    .then((response) => {
+      try {
+        const response = await http.get('/values/history/' + this.model.type + '/' + this.model.codeFipe + '/' + this.model.selected_ano + '/export/pdf')
+          .then((response) => {
 
-      this.model.historyValues = response.data;
-      this.model.historyLoading = false;
+            console.log(response.data.fileName);
+            this.downloadBase64File(response.data.base64,'pdf',response.data.filename);
+          })
 
-    })
 
+      } catch (error) {
+        console.log(error);
+      }
 
-} catch (error) {
-  console.log(error);
-}
+    },
 
-},
-
+    async downloadBase64File(base64Data, contentType, fileName) {
+      const linkSource = `data:${contentType};base64,${base64Data}`;
+      const downloadLink = document.createElement("a");
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    },
+ 
+  
     async reload() {
 
       this.model.historyValues = [];
@@ -277,14 +285,14 @@ try {
         </div>
 
         <div>
-          <button type="button" class="btn  m-4" :class="{ active: model.isActiveMoto }" @click="setType('motorcycles', 2)">
+          <button type="button" class="btn  m-4" :class="{ active: model.isActiveMoto }"
+            @click="setType('motorcycles', 2)">
             <font-awesome-icon class="button_type fa-5x" icon="motorcycle" />
           </button>
         </div>
 
         <div>
-          <button type="button" class="btn  m-4" :class="{ active: model.isActiveTruck }"
-            @click="setType('trucks', 3)">
+          <button type="button" class="btn  m-4" :class="{ active: model.isActiveTruck }" @click="setType('trucks', 3)">
             <font-awesome-icon class="button_type fa-5x" icon="truck" />
           </button>
         </div>
@@ -442,6 +450,7 @@ try {
           <div class="card_values">
             <p class="text_values">Histórico</p>
             <div class="card_list_values">
+              <div class="actual_value">Atual</div>
               <div v-for="item in this.model.historyValues.priceHistory">
                 <div
                   style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 4px; display: inline-flex">
@@ -476,7 +485,7 @@ try {
 
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" type="button">PDF</button>
+            <button class="dropdown-item" @click="exportPdf" type="button">PDF</button>
             <button class="dropdown-item" type="button" @click="openModalConfirmLogout">E-mail</button>
           </div>
         </div>
@@ -673,6 +682,32 @@ main {
 
 }
 
+.actual_value {
+
+  background-color: #38c7bb;
+  border-color: #04867b;
+  border-radius: 25px;
+
+  border-width: 100px;
+  /* flex: 1 1 0; */
+  /* text-overflow: clip; */
+  font-size: 16px;
+  /* font-family: Inter; */
+  font-weight: 600;
+  color: #ffffff;
+  height: 1.6em;
+  width: 50px;
+  top: 150px;
+  font-family: Popins;
+  text-align: center;
+  top: 25px;
+  left: 230px;
+  position: relative;
+
+  /* margin-left: 10px; */
+
+}
+
 .text_values {
   font-family: poppins;
   color: #5b77fe;
@@ -719,21 +754,20 @@ main {
 
 
 .logout:hover {
-    background-color: rgb(5, 223, 204);
-    border-color: rgb(5, 223, 204);
+  background-color: rgb(5, 223, 204);
+  border-color: rgb(5, 223, 204);
 }
 
 .logout:active {
-    background-color: #00fde8;
-    color: white;
+  background-color: #00fde8;
+  color: white;
 }
 
 
-.dropdown-item:hover{
+.dropdown-item:hover {
 
-background-color: #b5f0eb;
-border-radius: 3%;
+  background-color: #b5f0eb;
+  border-radius: 3%;
 
 }
-
 </style>
