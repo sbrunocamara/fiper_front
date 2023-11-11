@@ -40,32 +40,9 @@ export default {
         codeFipe: '',
         historyValues: [],
         historyLoading: false,
-        historyTeste: [{
-          "vehicleType": 2,
-          "brand": "YAMAHA",
-          "model": "YZF R-3 321/ABS",
-          "modelYear": 2020,
-          "fuel": "Gasolina",
-          "codeFipe": "827097-0",
-          "fuelAcronym": "G",
-          "priceHistory": [
-            {
-              "price": "R$ 26.900,00",
-              "month": "novembro de 2023",
-              "reference": "303"
-            },
-            {
-              "price": "R$ 27.080,00",
-              "month": "outubro de 2023",
-              "reference": "302"
-            },
-            {
-              "price": "R$ 26.630,00",
-              "month": "setembro de 2023",
-              "reference": "301"
-            }
-          ]
-        }],
+        modalEmail: null,
+        email: '',
+
 
 
       },
@@ -227,7 +204,7 @@ export default {
           .then((response) => {
 
             console.log(response.data.fileName);
-            this.downloadBase64File(response.data.base64,'pdf',response.data.filename);
+            this.downloadBase64File(response.data.base64, 'pdf', response.data.filename);
           })
 
 
@@ -244,8 +221,17 @@ export default {
       downloadLink.download = fileName;
       downloadLink.click();
     },
- 
-  
+
+    async openModalEmail() {
+
+      this.model.modalEmail = new bootstrap.Modal(document.getElementById('modalEmail'), focus)
+      this.model.modalEmail.show()
+
+    },
+    async exportEmail(){
+
+    },
+
     async reload() {
 
       this.model.historyValues = [];
@@ -486,7 +472,7 @@ export default {
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <button class="dropdown-item" @click="exportPdf" type="button">PDF</button>
-            <button class="dropdown-item" type="button" @click="openModalConfirmLogout">E-mail</button>
+            <button class="dropdown-item" type="button" @click="openModalEmail">E-mail</button>
           </div>
         </div>
 
@@ -497,6 +483,37 @@ export default {
     </div>
 
 
+
+    <!-- MODAL EXPORT TO EMAIL -->
+
+    <div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enviar e-mail</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              @click="this.model.modalEmail.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="exportEmail">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label emailLabel">Email</label>
+                <input type="email" class="form-control emailField " id="recipient-name" v-model="this.model.email" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="backModal btn btn-secondary" @click="this.model.modalEmail.hide()"
+                  data-dismiss="modal">Voltar</button>
+                <button type="submit" class="submit btn btn-primary">Enviar</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -770,4 +787,43 @@ main {
   border-radius: 3%;
 
 }
+
+.close {
+    border-style: none;
+    background-color: transparent;
+}
+
+.submit{
+    background-color: rgb(5, 223, 204);
+    border-color: rgb(5, 223, 204);
+    color: white;
+}
+
+.submit:hover{
+    background-color: rgb(7, 248, 228);
+    border-color: rgb(7, 248, 228);
+    color: white;
+}
+
+.submit:active{
+    background-color: rgb(7, 117, 108);
+    border-color: rgb(7, 117, 108);
+}
+
+.backModal{
+  color: white
+}
+
+.backModal:hover{
+  background-color: rgb(153, 155, 155);
+  border-color: rgb(153, 155, 155);
+  color: white
+}
+
+.emailField{
+  margin-left: 0px;
+  width: 350px;
+  margin-bottom: 10px;
+}
+
 </style>
